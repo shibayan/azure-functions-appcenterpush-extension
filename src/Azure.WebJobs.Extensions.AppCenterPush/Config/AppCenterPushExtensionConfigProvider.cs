@@ -35,9 +35,7 @@ namespace Azure.WebJobs.Extensions.AppCenterPush
 
         public AppCenterPushClient GetClient(AppCenterPushAttribute attribute)
         {
-            var apiToken = _nameResolver.Resolve(attribute.ApiTokenSetting);
-
-            return new AppCenterPushClient(apiToken, attribute.OwnerName, attribute.AppName);
+            return new AppCenterPushClient(attribute.ApiTokenSetting, attribute.OwnerName, attribute.AppName);
         }
     }
 }
