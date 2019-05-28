@@ -1,5 +1,11 @@
 # Azure Functions Bindings for App Center Push
 
+## NuGet Packages
+
+Package Name | Target Framework | NuGet
+---|---|---
+WebJobs.Extensions.AppCenterPush | .NET Standard 2.0 | [![NuGet](https://img.shields.io/nuget/v/WebJobs.Extensions.AppCenterPush.svg)](https://www.nuget.org/packages/WebJobs.Extensions.AppCenterPush)
+
 ## Usage
 
 ```csharp
