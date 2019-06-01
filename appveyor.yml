@@ -12,7 +12,10 @@ skip_commits:
     - README.md
 
 image:
-  - Visual Studio 2019
+  - Visual Studio 2017
   - Ubuntu
+
+build:
+  project: Azure.WebJobs.Extensions.AppCenterPush.sln
 
 test: off
