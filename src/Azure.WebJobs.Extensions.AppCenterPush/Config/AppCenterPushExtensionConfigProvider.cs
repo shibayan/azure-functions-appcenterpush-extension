@@ -19,6 +19,7 @@ namespace Azure.WebJobs.Extensions.AppCenterPush
 
             var appCenterPushAttributeRule = context.AddBindingRule<AppCenterPushAttribute>();
 
+            appCenterPushAttributeRule.AddValidator(ValidateBinding);
             appCenterPushAttributeRule.BindToCollector<AppCenterPushMessage>(typeof(AppCenterPushCollectorBuilder<>), this);
         }
 
@@ -27,7 +28,7 @@ namespace Azure.WebJobs.Extensions.AppCenterPush
             return new AppCenterPushClient(attribute.ApiTokenSetting, attribute.OwnerName, attribute.AppName);
         }
 
-        private void ValidateBinding(AppCenterPushAttribute attribute)
+        private void ValidateBinding(AppCenterPushAttribute attribute, Type type)
         {
             if (string.IsNullOrEmpty(attribute.ApiTokenSetting))
             {
