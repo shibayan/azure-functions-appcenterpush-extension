@@ -6,13 +6,14 @@ Package Name | Target Framework | NuGet
 ---|---|---
 WebJobs.Extensions.AppCenterPush | .NET Standard 2.0 | [![NuGet](https://img.shields.io/nuget/v/WebJobs.Extensions.AppCenterPush.svg)](https://www.nuget.org/packages/WebJobs.Extensions.AppCenterPush)
 
-## Usage
+## Basic usage
 
 ```csharp
-public static class Function
+public static class Functions
 {
-    [FunctionName("Function")]
-    public static async Task<IActionResult> Run(
+    // Use IAsyncCollector<T>
+    [FunctionName("Function1")]
+    public static async Task<IActionResult> Function1(
         [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req,
         [AppCenterPush(OwnerName = "owner", AppName = "app")] IAsyncCollector<AppCenterPushMessage> collector,
         ILogger log)
@@ -29,6 +30,25 @@ public static class Function
         });
 
         return new OkResult();
+    }
+    
+    // Use returning value
+    [FunctionName("Function2")]
+    [return: AppCenterPush(OwnerName = "owner", AppName = "app")]
+    public static AppCenterPushMessage Function2(
+        [HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req,
+        ILogger log)
+    {
+        return new AppCenterPushMessage
+        {
+            Content = new AppCenterPushContent
+            {
+                Name = "First Push From App Center",
+                Title = "Push From App Center",
+                Body = "Hello! Isn't this an amazing notification message?",
+                CustomData = new { key1 = "val1", key2 = "val2" }
+            }
+        };
     }
 }
 ```
