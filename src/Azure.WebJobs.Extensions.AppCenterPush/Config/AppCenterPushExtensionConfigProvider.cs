@@ -1,24 +1,13 @@
 ﻿using System;
 
-using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Description;
 using Microsoft.Azure.WebJobs.Host.Config;
-using Microsoft.Extensions.Options;
 
 namespace Azure.WebJobs.Extensions.AppCenterPush
 {
     [Extension("AppCenterPush", configurationSection: "appCenterPush")]
     public class AppCenterPushExtensionConfigProvider : IExtensionConfigProvider
     {
-        public AppCenterPushExtensionConfigProvider(IOptions<AppCenterPushOptions> options, INameResolver nameResolver)
-        {
-            _options = options.Value;
-            _nameResolver = nameResolver;
-        }
-
-        private readonly AppCenterPushOptions _options;
-        private readonly INameResolver _nameResolver;
-
         internal const string AppCenterPushApiTokenName = "AppCenterPushApiToken";
 
         public void Initialize(ExtensionConfigContext context)
@@ -30,12 +19,21 @@ namespace Azure.WebJobs.Extensions.AppCenterPush
 
             var appCenterPushAttributeRule = context.AddBindingRule<AppCenterPushAttribute>();
 
+            appCenterPushAttributeRule.AddValidator(ValidateBinding);
             appCenterPushAttributeRule.BindToCollector<AppCenterPushMessage>(typeof(AppCenterPushCollectorBuilder<>), this);
         }
 
-        public AppCenterPushClient GetClient(AppCenterPushAttribute attribute)
+        internal AppCenterPushClient GetClient(AppCenterPushAttribute attribute)
         {
             return new AppCenterPushClient(attribute.ApiTokenSetting, attribute.OwnerName, attribute.AppName);
+        }
+
+        private void ValidateBinding(AppCenterPushAttribute attribute, Type type)
+        {
+            if (string.IsNullOrEmpty(attribute.ApiTokenSetting))
+            {
+                throw new InvalidOperationException("API Token must be set.");
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Azure.WebJobs.Extensions.AppCenterPush
 
             if (typeof(T) != typeof(AppCenterPushMessage))
             {
-                throw new InvalidOperationException("");
+                throw new InvalidOperationException("Unsupport binding type.");
             }
 
             await _pushClient.NotificationsAsync(item as AppCenterPushMessage);
