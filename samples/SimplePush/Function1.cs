@@ -46,5 +46,20 @@ namespace SimplePush
 
             return new OkResult();
         }
+
+        [FunctionName("Function2")]
+        [return: AppCenterPush(OwnerName = "shibayan", AppName = "AppCenterPushTest")]
+        public static AppCenterPushMessage Send([HttpTrigger(AuthorizationLevel.Function, "post")] HttpRequest req)
+        {
+            return new AppCenterPushMessage
+            {
+                Content = new AppCenterPushContent
+                {
+                    Name = "pushtest",
+                    Title = "hoge",
+                    Body = "body"
+                }
+            };
+        }
     }
 }
