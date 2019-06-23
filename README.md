@@ -146,3 +146,7 @@ await collector.AddAsync(new AppCenterPushMessage
     }
 });
 ```
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/shibayan/azure-functions-appcenterpush-extension/blob/master/LICENSE)
