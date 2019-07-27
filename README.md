@@ -1,6 +1,6 @@
 # Azure Functions Bindings for App Center Push
 
-[![Build status](https://ci.appveyor.com/api/projects/status/emvg64upyptmadei?svg=true)](https://ci.appveyor.com/project/shibayan/azure-functions-appcenterpush-extension)
+[![Build Status](https://dev.azure.com/shibayan/azure-functions-appcenterpush-extension/_apis/build/status/Build%20azure-functions-appcenterpush-extension?branchName=master)](https://dev.azure.com/shibayan/azure-functions-appcenterpush-extension/_build/latest?definitionId=30&branchName=master)
 
 ## NuGet Packages
 
